@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Previous Trees</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="/css/trees.css">
+</head>
+<body>
+    <h1 align="center">Previous Trees</h1>
+    <main>
+        <div>
+            <th:block th:each="tree : ${trees}">
+                <div class="item">
+                    <p th:text="${tree.numbers}"></p>
+                    <button
+                            th:dataJson="${tree.json}"
+                            th:onclick="javascript:showBox(this.getAttribute('dataJson'))"
+                    >View</button>
+                </div>
+            </th:block>
+        </div>
+        <div id="output-box">
+            <pre id="output"></pre>
+        </div>
+    </main>
+</body>
+<script>
+const output = document.getElementById("output");
+
+function showBox(data) {
+    output.innerText = JSON.stringify(JSON.parse(data), null, 4);
+}
+</script>
+</html>

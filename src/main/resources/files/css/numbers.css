@@ -1,0 +1,22 @@
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+main > div {
+    background-color: var(--background);
+    border-radius: 2rem;
+    padding: 2rem;
+}
+
+main > div#output-box {
+    background-color: var(--background-alt);
+}
+
+.buttons {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    grid-gap: 2rem;
+}

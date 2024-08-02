@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Enter Numbers</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <link rel="stylesheet" href="/css/numbers.css">
+</head>
+<body>
+    <main>
+        <div>
+            <fieldset>
+                <legend>Numbers</legend>
+                <label for="numbers">Comma Separated</label>
+                <input id="numbers" style="background-color: var(--border);">
+            </fieldset>
+            <div class="buttons">
+                <button id="submit">Submit</button>
+                <a href="/previous-trees"><button>Show Previous</button></a>
+            </div>
+        </div>
+        <div id="output-box" style="display: none;">
+            <pre id="output"></pre>
+        </div>
+    </main>
+</body>
+<script>
+const numbers = document.getElementById("numbers");
+const submit = document.getElementById("submit");
+const outputBox = document.getElementById("output-box");
+const output = document.getElementById("output");
+
+submit.addEventListener("click", () => {
+    const realNumbers = (numbers.value || "").split(/, */).map((v) => Number.parseInt(v))
+    fetch("/process-numbers", {
+        body: `{"numbers":[${realNumbers.join(",")}]}`,
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json()).then(data => {
+        outputBox.style.display = "block";
+        output.innerText = JSON.stringify(data, null, 4);
+    })
+})
+</script>
+</html>
